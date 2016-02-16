@@ -1,0 +1,55 @@
+#:kivy 1.1.0
+
+<EditorGame>:
+    BoxLayout:
+        orientation: 'vertical'
+        size: root.size
+        Label:
+            text: 'gocupi Image Converter'
+            size_hint_y: 0.10
+        Label:
+            text: 'Choose a File'
+            id: file_label
+            size_hint_y: 0.5
+        Image:
+            id: progress_bar
+            source: 'progress_anim.zip'
+            anim_delay: -1
+            size_hint: (0.75, 0.5)
+            pos_hint: {"center_x": 0.5}
+        Button:
+            id: convert_btn
+            text: 'Convert'
+            on_release: root.convert_file()
+            size_hint: (1, 0.10)
+            pos_hint: {"center_x": 0.5}
+            disabled: True
+        Button:
+            id: choose_btn
+            text: 'Choose File'
+            on_release: root.show_chooser()
+            size_hint: (1, 0.10)
+            pos_hint: {"center_x": 0.5}
+        Button:
+            text: 'Exit'
+            on_release: root.exit()
+            size_hint: (1, 0.10)
+            pos_hint: {"center_x": 0.5}
+<FileChooser>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: 'vertical'
+        FileChooserIconView:
+            id: filechooser
+            path: "~"
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: 'Cancel'
+                on_release: root.cancel()
+            Button:
+                text: 'Load'
+                on_release: root.load(filechooser.path, filechooser.selection and filechooser.selection[0] or '')
